@@ -1,0 +1,168 @@
+#define DS_MODALFRAME		0x80L
+#define TCS_FIXEDWIDTH		0x0400
+#define WS_VISIBLE		0x10000000L
+#define WS_CHILD		0x40000000L
+#define BS_AUTORADIOBUTTON	0x00000009L
+#define LBS_NOTIFY		0x0001L
+#define WS_VSCROLL		0x00200000L
+#define SS_NOTIFY           0x00000100L
+#define SS_LEFT             0x00000000L
+#define ES_LEFT             0x0000L
+#define ES_AUTOHSCROLL      0x0080L
+#define ES_AUTOVSCROLL      0x0040L
+#define ES_MULTILINE        0x0004L
+
+1002 cursor "Resources\\hand.cur"
+1003 icon   "Resources\\alarm.ico"
+1004 icon   "Resources\\scull.ico"
+1005 wave   "Resources\\beep.wav"
+
+100 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 180, 155
+STYLE  DS_MODALFRAME
+CAPTION ""
+FONT 8, "Times New Roman Cyr", 700, 0
+BEGIN
+    CONTROL         "",            101, "SysTabControl32", TCS_FIXEDWIDTH, 0, 0, 180, 130
+
+    PUSHBUTTON      "",            102, 45,  131, 44, 14, 0
+    PUSHBUTTON      "",            104, 90, 131, 44, 14, 0
+    PUSHBUTTON      "",            103, 135, 131, 44, 14, 0
+END
+
+110 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 174, 110, 0
+STYLE WS_VISIBLE | WS_CHILD
+CAPTION ""
+FONT 8, "Times New Roman Cyr", 700, 0
+BEGIN
+     GROUPBOX       "",                 111, 4, 0,  168, 110
+
+     GROUPBOX       "",                 112, 7, 6,  80, 37
+
+     CHECKBOX       "",                 113, 9, 14, 75, 8
+     CHECKBOX       "",                 114, 9, 23, 75, 8
+     CHECKBOX       "",                 115, 9, 32, 75, 8
+
+     GROUPBOX       "",                 134, 89, 6,  80, 72
+     GROUPBOX       "",                 135, 89, 78,  80, 29
+
+     CHECKBOX       "",                 116, 91, 23, 75, 8
+
+     RADIOBUTTON    "",                 121, 100, 32, 55, 8, BS_AUTORADIOBUTTON
+     RADIOBUTTON    "",                 122, 100, 41, 55, 8, BS_AUTORADIOBUTTON
+
+     CHECKBOX       "",                 117, 91, 14, 75, 8
+     CHECKBOX       "",                 118, 91, 50, 75, 8
+     CHECKBOX       "",                 119, 91, 59, 55, 8
+
+     CHECKBOX       "",                 120, 91, 68, 75, 8
+
+     CHECKBOX       "Русский",          123, 91, 87, 55, 8
+     CHECKBOX       "English",          124, 91, 96, 55, 8
+
+
+     GROUPBOX       "",                 130, 7, 43, 80, 64
+
+     PUSHBUTTON     "",                 131, 9, 54, 44, 14, 0
+     PUSHBUTTON     "",                 132, 9, 70, 44, 14, 0
+     PUSHBUTTON     "",                 133, 9, 86, 44, 14, 0
+END
+
+150 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 174, 110, 0
+STYLE WS_VISIBLE | WS_CHILD
+CAPTION ""
+FONT 8, "Times New Roman Cyr", 700, 0
+BEGIN
+   GROUPBOX       "", 151, 4, 0,  168, 110
+
+   LISTBOX            152, 8, 8, 160, 84, LBS_NOTIFY | WS_VSCROLL
+
+   PUSHBUTTON     "Добавить",      153, 8,   92, 52, 15, 0
+   PUSHBUTTON     "Удалить",       154, 62,  92, 52, 15, 0
+   PUSHBUTTON     "Свойства >>",      155, 116, 92, 52, 15, 0
+END
+
+200 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 174, 110, 0
+STYLE WS_VISIBLE | WS_CHILD
+CAPTION ""
+FONT 10, "Times New Roman Cyr", 700, 0
+BEGIN
+    GROUPBOX       "",         201, 4, 0,  168, 110
+
+    LTEXT           "",        202, 40, 10,  120, 10, 0
+    LTEXT           "Copyright (C) The CHEMIST 1999",        203, 40, 20, 120, 10, 0
+    LTEXT           "",        160, 10, 40, 160, 34, 0
+    LTEXT           "e-mail:", 205, 10, 82, 30, 12, 0
+    LTEXT           "WWW:",    206, 10, 90, 30, 12, 0
+
+    LTEXT           "pdovgalenko@mail.ru",              207, 36, 82, 110, 10, SS_NOTIFY
+    LTEXT           "http://gymnasium.dsb.ru/~Chemist", 208, 36, 90, 110, 10, SS_NOTIFY
+END
+
+250 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE	0, 0, 174, 110, 0
+STYLE WS_VISIBLE | WS_CHILD
+FONT 8, "Times New Roman Cyr", 700, 0
+BEGIN
+    GROUPBOX        "", 	251, 4,   0,168,110
+    PUSHBUTTON      "Ok",	252, 90, 94, 38, 12, 0
+    PUSHBUTTON      "Cancel",	253, 130,94, 38, 12, 0
+
+    LTEXT           "Title*  :",254, 9, 22, 38, 8, SS_LEFT
+    LTEXT           "Sound   :",255, 9, 36, 38, 8, SS_LEFT
+    LTEXT           "Command :",256, 9, 50, 38, 8, SS_LEFT
+    LTEXT           "Text    :",257, 9, 62, 38, 8, SS_LEFT
+
+    EDITTEXT        		258, 48, 22, 104, 10, ES_LEFT
+    EDITTEXT        		259, 48, 36, 104, 10, ES_AUTOHSCROLL | ES_LEFT
+    EDITTEXT        		260, 48, 50, 104, 10, ES_AUTOHSCROLL | ES_LEFT
+    EDITTEXT        		261, 48, 62, 120, 20, ES_AUTOVSCROLL | ES_MULTILINE | ES_LEFT | WS_VSCROLL
+
+    PUSHBUTTON      "...",	262, 154, 36, 14, 10, 0
+    PUSHBUTTON      "...",	263, 154, 50, 14, 10, 0
+
+
+END
+
+STRINGTABLE
+BEGIN
+    1,  "Clock v2.00(beta)"
+
+    10, "Настройки"
+    11, "Время/дата"
+    12, "Запускать с Windows"
+    13, "Свойства окна"
+    14, "Поверх остальных"
+    15, "Показывать на панели"
+    16, "Иконка в трее"
+    17, "Скринсейвер"
+    18, "Десктоп"
+    19, "Прятать трей"
+    20, "Прятать иконки"
+    21, "Свойства"
+    22, "О программе"
+    23, "Выход"
+    24, "English"
+    25, "Общие"
+    26, "Будильник"
+    27, "Часы уже запущены! Хотите их перезагрузить? Да/Нет/Выгрузить текущие(Отмена)"
+    28, "Выгрузить из памяти?"
+
+    60, "Preferences"
+    61, "Time/date"
+    62, "Autostart"
+    63, "Window prefs"
+    64, "Always on top"
+    65, "Show on taskbar"
+    66, "Show in tray"
+    67, "Screen Saver"
+    68, "Desktop"
+    69, "Hide tray"
+    70, "Hide icons"
+    71, "Properties"
+    72, "About"
+    73, "Exit"
+    74, "Русский"
+    75, "General"
+    76, "Alarms"
+    77, "Clock is already loaded! Do you want to reload them, Yes/No/Unload all(Cancel)?"
+    78, "Do you really want to exit?"
+END
