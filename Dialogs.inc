@@ -141,30 +141,26 @@ PrefProc   Proc hWin   :DWORD,
       invoke SetForegroundWindow, hWin
       m2m    hwndPref, hWin
 
-      invoke GetDlgItem, hWin, 101
-      mov    hTabCtrl, eax
+      mov    hTabCtrl, @Result(GetDlgItem, hWin, 101)
 
       invoke GetWindowRect, hTabCtrl, ADDR pRect
       add    pRect.top, 8
 
       mov    Item.imask, TCIF_TEXT
       mov    Item.iImage, -1
-      invoke GetString, 25
-      mov    Item.pszText, eax
+
+      mov    Item.pszText, @Result(GetString, 25)
       invoke SendMessage, hTabCtrl, TCM_INSERTITEM, 0, ADDR Item
-      invoke GetString, 26
-      mov    Item.pszText, eax
+
+      mov    Item.pszText, @Result(GetString, 26)
       invoke SendMessage, hTabCtrl, TCM_INSERTITEM, 1, ADDR Item
-      invoke GetString, 22
-      mov    Item.pszText, eax
+
+      mov    Item.pszText, @Result(GetString, 22)
       invoke SendMessage, hTabCtrl, TCM_INSERTITEM, 2, ADDR Item
 
-      invoke GetDlgItem, hWin, 102
-      mov    hOk, eax
-      invoke GetDlgItem, hWin, 103
-      mov    hApply, eax
-      invoke GetDlgItem, hWin, 104
-      mov    hCancel, eax
+      mov    hOk, @Result(GetDlgItem, hWin, 102)
+      mov    hApply, @Result(GetDlgItem, hWin, 103)
+      mov    hCancel, @Result(GetDlgItem, hWin, 104)
 
       invoke GetString, 10
       invoke SendMessage, hwndWnd, WM_SETTEXT, 0, eax
@@ -181,14 +177,13 @@ PrefProc   Proc hWin   :DWORD,
       mov    eax, dskWindow.right
       mov    ebx, dskWindow.bottom
       shr    eax, 1
-      sub    eax, 183
+      sub    eax, 198
 
       shr    ebx, 1
       sub    ebx, 157
       invoke SetWindowPos, hWin, HWND_TOP, eax, ebx, 0, 0, SWP_NOSIZE or SWP_NOZORDER
 
-      invoke CreateDialogParam, hInstance, 110, hTabCtrl, ADDR Prefs, 0
-      mov    hDlg, eax
+      mov    hDlg, @Result(CreateDialogParam, hInstance, 110, hTabCtrl, ADDR Prefs, 0)
 
       .if showAbout == TRUE
         invoke DestroyWindow, hDlg
@@ -232,6 +227,7 @@ PrefProc   Proc hWin   :DWORD,
 
       .endif
     .endif
+    xor eax, eax
     ret
 
 Modify:
@@ -243,8 +239,7 @@ Modify:
 
     ; Меняем цвет бэка
     invoke DeleteObject, hBrush
-    invoke CreateSolidBrush, bkColor
-    mov    hBrush, eax
+    mov    hBrush, @Result(CreateSolidBrush, bkColor)
     invoke SetClassLong, hWnd, GCL_HBRBACKGROUND, hBrush
 
     invoke SendMessage, HWND_BROADCAST, WM_FONTCHANGE, 0, 0
@@ -464,8 +459,8 @@ Prefs      Proc hWin   :DWORD,
        .endif
 
       .endif
-      xor    eax, eax
     .endif
+    mov eax, TRUE
     ret
 
 DeInit:
@@ -627,7 +622,7 @@ PAlarm     Proc hWin   :DWORD,
           .endif
       .endif
     .endif
-
+    mov eax, TRUE
     ret
 PAlarm     Endp
 
@@ -736,6 +731,7 @@ PAbout     Proc hWin   :DWORD,
       invoke GetDlgCtrlID, eax
       invoke SendDlgItemMessage, hWin, eax, WM_SETTEXT, NULL, ADDR dlgTitle
     .endif
+    mov eax, TRUE
     ret
 PAbout     Endp
 
@@ -802,10 +798,8 @@ PPref      Proc hWin   :DWORD,
         invoke TakeFile, hWin, TYPE_EXE
         invoke GetDlgItem, hWin, 260
         invoke SendMessage, eax, WM_SETTEXT, NULL, f.lpstrFile
-
       .endif
-
     .endif
-
+    mov eax, TRUE
     ret
 PPref      Endp

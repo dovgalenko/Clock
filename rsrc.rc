@@ -17,33 +17,33 @@
 1004 icon   "Resources\\scull.ico"
 1005 wave   "Resources\\beep.wav"
 
-100 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 180, 155
+100 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 200, 170
 STYLE  DS_MODALFRAME
 CAPTION ""
 FONT 8, "Times New Roman Cyr", 700, 0
 BEGIN
-    CONTROL         "",            101, "SysTabControl32", TCS_FIXEDWIDTH, 0, 0, 180, 130
+    CONTROL         "",            101, "SysTabControl32", TCS_FIXEDWIDTH, 0, 0, 210, 150
 
-    PUSHBUTTON      "",            102, 45,  131, 44, 14, 0
-    PUSHBUTTON      "",            104, 90, 131, 44, 14, 0
-    PUSHBUTTON      "",            103, 135, 131, 44, 14, 0
+    PUSHBUTTON      "",            102, 65,  153, 44, 14, 0
+    PUSHBUTTON      "",            104, 110, 153, 44, 14, 0
+    PUSHBUTTON      "",            103, 155, 153, 44, 14, 0
 END
 
-110 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 174, 110, 0
+110 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 210, 150, 0
 STYLE WS_VISIBLE | WS_CHILD
 CAPTION ""
 FONT 8, "Times New Roman Cyr", 700, 0
 BEGIN
-     GROUPBOX       "",                 111, 4, 0,  168, 110
+     GROUPBOX       "",                 111, 4, 0,  180, 150
 
-     GROUPBOX       "",                 112, 7, 6,  80, 37
+     GROUPBOX       "",                 112, 7, 6,  90, 37
 
      CHECKBOX       "",                 113, 9, 14, 75, 8
      CHECKBOX       "",                 114, 9, 23, 75, 8
      CHECKBOX       "",                 115, 9, 32, 75, 8
 
-     GROUPBOX       "",                 134, 89, 6,  80, 72
-     GROUPBOX       "",                 135, 89, 78,  80, 29
+     GROUPBOX       "",                 134, 89, 6,  90, 72
+     GROUPBOX       "",                 135, 89, 78,  90, 29
 
      CHECKBOX       "",                 116, 91, 23, 75, 8
 
@@ -81,21 +81,21 @@ BEGIN
    PUSHBUTTON     "Свойства >>",      155, 116, 92, 52, 15, 0
 END
 
-200 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 174, 110, 0
+200 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE 0, 0, 200, 130, 0
 STYLE WS_VISIBLE | WS_CHILD
 CAPTION ""
 FONT 10, "Times New Roman Cyr", 700, 0
 BEGIN
-    GROUPBOX       "",         201, 4, 0,  168, 110
+    GROUPBOX       "",         201, 4, 0,  150, 110
 
-    LTEXT           "",        202, 40, 10,  120, 10, 0
-    LTEXT           "Copyright (C) The CHEMIST 1999",        203, 40, 20, 120, 10, 0
-    LTEXT           "",        160, 10, 40, 160, 34, 0
+    LTEXT           "",        202, 40, 10,  110, 10, 0
+    LTEXT           "Copyright (C) The CHEMIST 1999",        203, 40, 20, 110, 10, 0
+    LTEXT           "",        160, 10, 40, 135, 34, 0
     LTEXT           "e-mail:", 205, 10, 82, 30, 12, 0
     LTEXT           "WWW:",    206, 10, 90, 30, 12, 0
 
-    LTEXT           "pdovgalenko@mail.ru",              207, 36, 82, 110, 10, SS_NOTIFY
-    LTEXT           "http://gymnasium.dsb.ru/~Chemist", 208, 36, 90, 110, 10, SS_NOTIFY
+    LTEXT           "dovgalenko@mail.ru",		207, 36, 82, 110, 10, SS_NOTIFY
+    LTEXT           "http://blog.dovgalenko.ru",	208, 36, 90, 110, 10, SS_NOTIFY
 END
 
 250 DIALOGEX MOVEABLE IMPURE LOADONCALL DISCARDABLE	0, 0, 174, 110, 0

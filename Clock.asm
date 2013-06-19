@@ -265,10 +265,10 @@ szFormat      Db 50 Dup(?)
 sTime         Db ' HH:mm', 0
 sSec          Db ':ss ', 0
 sDate         Db ' ddd, d MMMM ', 0
-sFDate        Db ' dddd, d MMMM yyyy', 0
-sRes          Db ' %lu%%, %lu%%, %lu%%', 0
-sMem          Db ' %luKb (%lu%%)', 0
-sCPU          Db ' CPU:%li%%, Threads:%li%', 0
+sFDate        Db ' dddd, d MMMM yyyy ', 0
+sRes          Db ' %lu%%, %lu%%, %lu%% ', 0
+sMem          Db ' %luKb (%lu%%) ', 0
+sCPU          Db ' CPU:%li%MHz ', 0
 
 .code
 ; Процедура диалогового окна
@@ -686,11 +686,6 @@ PrepareText   PROC
       invoke wsprintf, ADDR slCPU, ADDR sCPU, eax, ebx
       invoke lstrcat, ADDR mTime, ADDR slCPU
     ENDIF
-
-;    .if IsDebug == TRUE
-;      invoke wsprintf, ADDR sMemo, ADDR icnForm, icnAdd, icnDel
-;      invoke lstrcat, ADDR mTime, ADDR sMemo
-;    .endif
 
     invoke lstrlen, ADDR mTime
     mov    sfLen, eax

@@ -1,3 +1,5 @@
+DelayTime   Equ 500
+
 .code
 MakeRegistry  Proc  actType :DWORD
 
@@ -93,29 +95,56 @@ ReadRegistry  Proc
     ret
 ReadRegistry  Endp
 
-.data
-hkdd          Db  'PerfStats\StatData', 0
-usage         Db  'KERNEL\CPUUsage', 0
-threads       Db  'KERNEL\Threads', 0
-
-.code
 ReadCPU       Proc
-    LOCAL  hTest       :DWORD
-    LOCAL  rSize       :DWORD
-    LOCAL  rType       :DWORD
-    LOCAL  cpuLoc      :DWORD
-    LOCAL  thrLoc      :DWORD
+  ; Возвращает кол-во мегагерц процессора в Eax
+  LOCAL TimerHi, TimerLo,
+        PriorityClass, Priority,
+        hProc, hTd:DWORD
 
-    mov    rType, REG_BINARY
-    mov    rSize, SIZEOF DWORD
+  ; Сохраняем класс приоритета процесса
+  mov    eax, @Result(GetCurrentProcess)
+  mov    PriorityClass, @Result(GetPriorityClass, eax)
+  
+  ; Сохраняем приоритет потока
+  mov    eax, @Result(GetCurrentThread)
+  mov    Priority, @Result(GetThreadPriority, eax)
 
-    invoke RegOpenKeyEx, HKEY_DYN_DATA, ADDR hkdd, 0, KEY_READ, ADDR hTest
-    .if eax == ERROR_SUCCESS
-      invoke RegQueryValueEx, hTest, ADDR usage, NULL, ADDR rType, ADDR cpuLoc, ADDR rSize
-      invoke RegQueryValueEx, hTest, ADDR threads, NULL, ADDR rType, ADDR thrLoc, ADDR rSize
-      invoke RegCloseKey, hTest
-    .endif
-    mov    eax, cpuLoc
-    mov    ebx, thrLoc
-    ret
+  ; Берем идентификаторы процесса и потока
+  mov    hProc, @Result(GetCurrentProcess)
+  mov    hTd, @Result(GetCurrentThread)
+
+  ; Выставляем приоритеты процесса и потока
+  invoke SetPriorityClass, hProc, REALTIME_PRIORITY_CLASS
+  invoke SetThreadPriority, hTd, THREAD_PRIORITY_TIME_CRITICAL
+
+  ; Ждем немного
+  invoke Sleep, 10
+
+  ; Первый замер
+  rdtsc
+  mov    TimerLo, eax
+  mov    TimerHi, edx
+
+  invoke Sleep, DelayTime
+
+  ; Второй замер
+  rdtsc
+  sub    eax, TimerLo
+  sub    edx, TimerHi
+  mov    TimerLo, eax
+  mov    TimerHi, edx
+
+  push   eax
+
+  ; Восстанавливаем приоритеты процесса и потока
+  invoke SetPriorityClass, hProc, PriorityClass
+  invoke SetThreadPriority, hTd, Priority
+
+  mov    edx, 1000
+  imul   ebx, edx, DelayTime
+
+  xor    edx, edx
+  pop    eax
+  idiv   ebx
+  ret
 ReadCPU       Endp
