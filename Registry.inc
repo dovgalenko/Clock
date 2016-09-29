@@ -57,7 +57,7 @@ WriteRegistry  Proc
     .endif
 
     invoke RegSetValueEx, hTest, ADDR rgWnd, 0, REG_BINARY, ADDR clkWindow, SIZEOF RECT
-    invoke RegSetValueEx, hTest, ADDR rgType, 0, REG_BINARY, ADDR AutoBoot, 21
+    invoke RegSetValueEx, hTest, ADDR rgType, 0, REG_BINARY, ADDR AutoBoot, 22
     invoke RegSetValueEx, hTest, ADDR rgFont, 0, REG_BINARY, ADDR logFnt, SIZEOF LOGFONT
 
     invoke GetModuleFileName, hInstance, ADDR fKeyBuf, 512
@@ -70,7 +70,7 @@ WriteRegistry  Proc
 WriteRegistry  Endp
 
 ReadRegistry  Proc
-
+                       r
     LOCAL  hTest       :DWORD
     LOCAL  rSize       :DWORD
     LOCAL  rType       :DWORD
@@ -81,7 +81,7 @@ ReadRegistry  Proc
     .if eax == ERROR_SUCCESS
        mov    rSize, SIZEOF RECT
        invoke RegQueryValueEx, hTest, ADDR rgWnd, NULL, ADDR rType, ADDR clkWindow, ADDR rSize
-       mov    rSize, 21
+       mov    rSize, 22
        invoke RegQueryValueEx, hTest, ADDR rgType, NULL, ADDR rType, ADDR AutoBoot, ADDR rSize
 ;       mov    rSize, SIZEOF LOGFONT
 ;       invoke RegQueryValueEx, hTest, ADDR rgFont, NULL, ADDR rType, ADDR logFnt, ADDR rSize

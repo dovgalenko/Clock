@@ -3,12 +3,12 @@ include macros.inc
 @Start
 @Uses gdi32, user32, comctl32, kernel32, winmm, shell32, advapi32, comdlg32
 
-NumAlarms	Equ	25
+NumAlarms Equ 25
 
-CPUUSAGE	Equ	1
+CPUUSAGE  Equ 1
 
-LANG_RUS	Equ	0
-LANG_ENG	Equ	1
+LANG_RUS  Equ 0
+LANG_ENG  Equ 1
 
 DESK_SHOW   Equ     0
 DESK_HIDE   Equ     1
@@ -681,11 +681,13 @@ PrepareText   PROC
       .endif
     .endif
 
-    IFDEF CPUUSAGE
-      invoke ReadCPU
-      invoke wsprintf, ADDR slCPU, ADDR sCPU, eax, ebx
-      invoke lstrcat, ADDR mTime, ADDR slCPU
-    ENDIF
+    .if ShowCPU == TRUE
+      IFDEF CPUUSAGE
+        invoke ReadCPU
+        invoke wsprintf, ADDR slCPU, ADDR sCPU, eax, ebx
+        invoke lstrcat, ADDR mTime, ADDR slCPU
+      ENDIF
+    .endif
 
     invoke lstrlen, ADDR mTime
     mov    sfLen, eax

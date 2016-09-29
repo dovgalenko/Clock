@@ -337,13 +337,13 @@ Prefs      Proc hWin   :DWORD,
       invoke CreateSolidBrush, tmpFore
       mov    bFnt, eax
       invoke SelectObject, bPaint.hdc, bFnt
-      invoke Rectangle, bPaint.hdc, 110, 108, 167, 136
+      invoke Rectangle, bPaint.hdc, 85, 95, 125, 120
       invoke DeleteObject, bFnt
       invoke CreateSolidBrush, tmpBack
       mov    bFnt, eax
       invoke SelectObject, bPaint.hdc, bFnt
-      invoke Rectangle, bPaint.hdc, 110, 140, 167, 168
-      invoke Rectangle, bPaint.hdc, 110, 172, 167, 200
+      invoke Rectangle, bPaint.hdc, 85, 123, 125, 148
+      invoke Rectangle, bPaint.hdc, 85, 151, 125, 176
       invoke DeleteObject, bFnt
       push   tmpFnt.lfHeight
       mov    tmpFnt.lfHeight, 18
@@ -352,10 +352,10 @@ Prefs      Proc hWin   :DWORD,
       invoke SelectObject, bPaint.hdc, tFnt
       invoke SetTextColor, bPaint.hdc, tmpFore
       invoke SetBkMode, bPaint.hdc, TRANSPARENT
-      mov    tTest.left, 110
-      mov    tTest.top, 172
-      mov    tTest.right, 167
-      mov    tTest.bottom, 200
+      mov    tTest.left, 85
+      mov    tTest.top, 151
+      mov    tTest.right, 125
+      mov    tTest.bottom, 180
       invoke DrawTextEx, bPaint.hdc, ADDR ttst, -1, ADDR tTest, DT_CENTER or DT_VCENTER or DT_SINGLELINE, NULL
       invoke DeleteObject, tFnt
       pop    tmpFnt.lfHeight

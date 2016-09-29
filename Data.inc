@@ -134,6 +134,7 @@ ShowInTray      Db  FALSE
 AlwaysOnTop     Db  TRUE
 ShowInTasks     Db  TRUE
 ShowDate        Db  FALSE
+ShowCPU         Db  FALSE
 ShowSec         Db  TRUE
 ShowRes         Db  FALSE
 ShowMem         Db  FALSE
@@ -150,7 +151,7 @@ Language1       Db  LANG_ENG
 seeTray         Db  TRUE
 seeProg         Db  TRUE
 
-Language       Db  LANG_ENG
+Language        Db  LANG_ENG
 
 logFnt          LOGFONT  <25, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, \
                          OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, \
@@ -211,6 +212,7 @@ d3rus14         Db  'полностью', 0
 d3rus15         Db  'пам€ть', 0
 d3rus16         Db  'язык', 0
 d3rus17         Db  'мигать', 0
+d3rus18         Db  'CPU', 0
 
 d3eng1          Db  'Window settings', 0
 d3eng2          Db  'icon in tray', 0
@@ -229,6 +231,7 @@ d3eng14         Db  'full', 0
 d3eng15         Db  'memory', 0
 d3eng16         Db  'Language', 0
 d3eng17         Db  'blink', 0
+d3eng18         Db  'CPU', 0
 
 d1rus           Db  102
                 Dd  OFFSET d1rus1
@@ -288,6 +291,8 @@ d3rus           Db  112
                 Dd  OFFSET d3rus15
                 Db  120
                 Dd  OFFSET d3rus17
+                Db  121
+                Dd  OFFSET d3rus18
                 Db  0
 
 d3eng           Db  112
@@ -324,6 +329,8 @@ d3eng           Db  112
                 Dd  OFFSET d3eng15
                 Db  120
                 Dd  OFFSET d3eng17
+                Db  121
+                Dd  OFFSET d3eng18
                 Db  0
 
 szSpace         Db  ' ', 0
