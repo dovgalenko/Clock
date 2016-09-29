@@ -7,8 +7,8 @@ TYPE_EXE  Equ  11
 TakeColor  Proc aInstance :DWORD,
                 hwndOwner :DWORD,
                 initColor :DWORD
-comment~
-            LOCAL   col:CHOOSECOLOR
+
+     LOCAL   col:CHOOSECOLOR
 
      mov    col.lStructSize, sizeof CHOOSECOLOR
      mov    eax, aInstance
@@ -23,15 +23,14 @@ comment~
 
      invoke ChooseColor, ADDR col
      mov    ebx, col.rgbResult
-~
      ret
 TakeColor  Endp
 
 TakeFont   Proc hwndOwner :DWORD,
                 lpFntStr  :DWORD
 
-           LOCAL fnt: CHOOSEFONT
-comment~
+     LOCAL fnt: CHOOSEFONT
+
      mov    fnt.lStructSize, sizeof CHOOSEFONT
      mov    eax, hwndOwner
      mov    fnt.hWndOwner, eax
@@ -39,12 +38,11 @@ comment~
      mov    fnt.nFontType, REGULAR_FONTTYPE
      m2m    fnt.lpLogFont, lpFntStr
      invoke ChooseFont, ADDR fnt
-~
      ret
 TakeFont   Endp
 
 TakeFile   Proc hWin     :DWORD, FType:DWORD
-comment~
+
     mov    f.lStructSize, sizeof OPENFILENAME
     mov    eax, hWin
     mov    f.hWndOwner, eax
@@ -77,7 +75,6 @@ comment~
     mov    f.Flags, OFN_FILEMUSTEXIST or OFN_LONGNAMES or OFN_NOCHANGEDIR
     mov    f.nFileOffset, 0
     invoke GetOpenFileName, ADDR f
-~
     ret
 TakeFile   Endp
 
