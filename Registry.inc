@@ -70,7 +70,7 @@ WriteRegistry  Proc
 WriteRegistry  Endp
 
 ReadRegistry  Proc
-                       r
+
     LOCAL  hTest       :DWORD
     LOCAL  rSize       :DWORD
     LOCAL  rType       :DWORD
