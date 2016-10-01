@@ -157,6 +157,8 @@ logFnt          LOGFONT  <25, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_C
                          OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, \
                          FF_MODERN or DEFAULT_PITCH, 'Times New Roman'>
 
+settingsLen     Dd  OFFSET logFnt - OFFSET AutoBoot
+
 ; Название диалога и титул
 wClass          Db  'Tiny_Clock', 0
 

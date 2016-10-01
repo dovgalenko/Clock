@@ -5,8 +5,6 @@ include macros.inc
 
 NumAlarms Equ 25
 
-CPUUSAGE  Equ 1
-
 LANG_RUS  Equ 0
 LANG_ENG  Equ 1
 
@@ -90,7 +88,7 @@ WAVE_BEEP   Equ     3
 
         TakeFile      PROTO :DWORD, :DWORD
         TakeFont      PROTO :DWORD, :DWORD
-        TakeColor     PROTO :DWORD, :DWORD, :DWORD
+        TakeColor     PROTO :DWORD, :DWORD
         Alarm         PROTO :DWORD, :DWORD, :DWORD
         MakeRegistry  PROTO :DWORD
 
@@ -682,11 +680,9 @@ PrepareText   PROC
     .endif
 
     .if ShowCPU == TRUE
-      IFDEF CPUUSAGE
-        invoke ReadCPU
-        invoke wsprintf, ADDR slCPU, ADDR sCPU, eax, ebx
-        invoke lstrcat, ADDR mTime, ADDR slCPU
-      ENDIF
+      invoke ReadCPU
+      invoke wsprintf, ADDR slCPU, ADDR sCPU, eax, ebx
+      invoke lstrcat, ADDR mTime, ADDR slCPU
     .endif
 
     invoke lstrlen, ADDR mTime

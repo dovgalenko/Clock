@@ -4,15 +4,14 @@ TYPE_EXE  Equ  11
           LangDialog PROTO :DWORD, :DWORD
 
 .code
-TakeColor  Proc aInstance :DWORD,
-                hwndOwner :DWORD,
+TakeColor  Proc hwndOwner :DWORD,
                 initColor :DWORD
 
      LOCAL   col:CHOOSECOLOR
 
+     pushad
      mov    col.lStructSize, sizeof CHOOSECOLOR
-     mov    eax, aInstance
-     mov    col.hInstance, eax
+     mov    col.hInstance, @Result(GetModuleHandle, NULL)
      mov    eax, hwndOwner
      mov    col.hwndOwner, eax
      mov    eax, initColor
@@ -20,9 +19,10 @@ TakeColor  Proc aInstance :DWORD,
      lea    eax, custColors
      mov    col.lpCustColors, eax
      mov    col.Flags, CC_FULLOPEN or CC_RGBINIT
-
      invoke ChooseColor, ADDR col
-     mov    ebx, col.rgbResult
+     popad
+
+     mov    eax, col.rgbResult
      ret
 TakeColor  Endp
 
@@ -31,6 +31,7 @@ TakeFont   Proc hwndOwner :DWORD,
 
      LOCAL fnt: CHOOSEFONT
 
+     pushad
      mov    fnt.lStructSize, sizeof CHOOSEFONT
      mov    eax, hwndOwner
      mov    fnt.hWndOwner, eax
@@ -38,16 +39,17 @@ TakeFont   Proc hwndOwner :DWORD,
      mov    fnt.nFontType, REGULAR_FONTTYPE
      m2m    fnt.lpLogFont, lpFntStr
      invoke ChooseFont, ADDR fnt
+     popad
      ret
 TakeFont   Endp
 
 TakeFile   Proc hWin     :DWORD, FType:DWORD
 
+    pushad
     mov    f.lStructSize, sizeof OPENFILENAME
+    mov    f.hInstance, @Result(GetModuleHandle, NULL)
     mov    eax, hWin
     mov    f.hWndOwner, eax
-    mov    eax, hInstance
-    mov    f.hInstance, eax
     .if Language == LANG_ENG
       .if FType == TYPE_EXE
         lea    eax, FiltersEng1
@@ -75,6 +77,7 @@ TakeFile   Proc hWin     :DWORD, FType:DWORD
     mov    f.Flags, OFN_FILEMUSTEXIST or OFN_LONGNAMES or OFN_NOCHANGEDIR
     mov    f.nFileOffset, 0
     invoke GetOpenFileName, ADDR f
+    popad
     ret
 TakeFile   Endp
 
@@ -368,7 +371,7 @@ Prefs      Proc hWin   :DWORD,
 
       .if eax >= 113 && eax <= 122
         xchg   eax, ebx
-        .if ebx >=113 && ebx <= 120
+        .if ebx >=113 && ebx <= 121
           invoke SendDlgItemMessage, hWin, ebx, BM_GETCHECK, 0, 0
           push   ebx
           .if eax == BST_CHECKED
@@ -436,7 +439,7 @@ Prefs      Proc hWin   :DWORD,
         .endif
 
       .elseif eax == 131
-        invoke TakeColor, hInstance, hWin, tmpFore
+        invoke TakeColor, hWin, tmpFore
         .if eax == TRUE
           mov    tmpFore, ebx
           mov    tmpMod, TRUE
@@ -446,7 +449,7 @@ Prefs      Proc hWin   :DWORD,
         .endif
 
       .elseif eax == 132
-        invoke TakeColor, hInstance, hWin, tmpBack
+        invoke TakeColor, hWin, tmpBack
         .if eax == TRUE
           mov    tmpBack, ebx
           mov    tmpMod, TRUE
