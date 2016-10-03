@@ -1,7 +1,14 @@
 TYPE_WAV  Equ  10
 TYPE_EXE  Equ  11
 
-          LangDialog PROTO :DWORD, :DWORD
+          DelAlarm    PROTO  :DWORD
+          AddAlarm    PROTO
+          ListAlarms  PROTO
+          LangDialog  PROTO :DWORD, :DWORD
+          PPrepare    PROTO :DWORD
+          PAlarm      PROTO :DWORD, :DWORD, :DWORD, :DWORD
+          PAbout      PROTO :DWORD, :DWORD, :DWORD, :DWORD
+          PPref       PROTO :DWORD, :DWORD, :DWORD, :DWORD
 
 .code
 TakeColor  Proc hwndOwner :DWORD,
@@ -83,12 +90,13 @@ TakeFile   Endp
 
 .data
 canChange  Db   TRUE
-Selected   Dd   ?
 
 vOper      Db   'open', 0
 getStat    Db   'mailto:', 20 Dup (?)
 
 .data?
+Selected   Dd   ?
+
 email      Dd   ?
 nBrush     Dd   ?
 nFont      Dd   ?
@@ -99,12 +107,6 @@ hCancel    Dd   ?
 
 hwndPrefs  HWND ?
 hwndWnd    HWND ?
-
-.code
-           PPrepare    PROTO :DWORD
-           PAlarm      PROTO :DWORD, :DWORD, :DWORD, :DWORD
-           PAbout      PROTO :DWORD, :DWORD, :DWORD, :DWORD
-           PPref       PROTO :DWORD, :DWORD, :DWORD, :DWORD
 
 .code
 PrefProc   Proc hWin   :DWORD,
@@ -491,6 +493,8 @@ ChangeLang:
 Prefs      Endp
 
 PPrepare   Proc hWin :DWORD
+
+    pushad
     xor    ecx, ecx
 
 @DoNext:
@@ -535,22 +539,18 @@ PPrepare   Proc hWin :DWORD
       invoke SendDlgItemMessage, hWin, 124, BM_SETCHECK, BST_CHECKED, 0
     .endif
 
+    popad
     ret
 PPrepare   Endp
-
-.data?
-dlgAlarm   Dd  ?
 
 .data
 msgProp    db  'свойства', 0
 
-.code
-DelAlarm   PROTO  :DWORD
-AddAlarm   PROTO
-ListAlarms PROTO
-
 .data?
-curAlarm   Dd   ?
+wndActive   Dd  ?
+
+dlgAlarm    Dd  ?
+curAlarm    Dd  ?
 
 .code
 PAlarm     Proc hWin   :DWORD,
@@ -735,10 +735,6 @@ PAbout     Proc hWin   :DWORD,
     ret
 PAbout     Endp
 
-.data?
-wndActive   Dd  ?
-
-.code
 PPref      Proc hWin   :DWORD,
                 uMsg   :DWORD,
                 wParam :DWORD,

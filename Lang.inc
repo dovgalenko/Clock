@@ -28,8 +28,8 @@ GetString Endp
 LangDialog Proc hWin :DWORD,
                 Ofs  :DWORD
 
+   pushad
    mov    esi, Ofs
-
 @NextItem:
    xor    eax, eax
    lodsb
@@ -41,5 +41,6 @@ LangDialog Proc hWin :DWORD,
    invoke SendMessage, ebx, WM_SETTEXT, NULL, eax
    jmp    @NextItem
 @NoItems:
+   popad
    ret
 LangDialog Endp
